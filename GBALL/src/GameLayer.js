@@ -6,6 +6,7 @@ var GameLayer = cc.LayerColor.extend({
         var ball = new Ball();
         ball.setPosition( new cc.Point(200,200) );
         this.addChild( ball );
+        ball.scheduleUpdate();
 
         return true;
     }
