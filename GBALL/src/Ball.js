@@ -2,7 +2,8 @@ var Ball = cc.Sprite.extend({
 	ctor: function(){
 		this._super();
 		this.initWithFile('res/images/ball.png');
-		this.a = 5;
+		this.state = 50;
+		this.acceleration = 5;
 		Ball.DIR = {
 			RIGHT: 1,
 			LEFT: 2
@@ -16,23 +17,23 @@ var Ball = cc.Sprite.extend({
 		
 		// this.a -= 1
 		
-		if(pos.y > 100) this.a += 1;
-		else this.a -= 1;
+		if(pos.y > 180) this.acceleration += 1;
+		else this.acceleration -= 1;
 
 
 		if( this.direction == Ball.DIR.RIGHT ){
 			if( pos.x > screenWidth){
 				this.direction = Ball.DIR.LEFT;
-				this.setPosition( new cc.Point( pos.x-5 , pos.y-this.a ) );
+				this.setPosition( new cc.Point( pos.x-6 , pos.y-this.acceleration ) );
 			} else{
-				this.setPosition( new cc.Point( pos.x+5 , pos.y-this.a ) );
+				this.setPosition( new cc.Point( pos.x+6 , pos.y-this.acceleration ) );
 			}
 		} else{
 			if( pos.x < 0){
 				this.direction = Ball.DIR.RIGHT;
-				this.setPosition( new cc.Point( pos.x+5 , pos.y-this.a ) );
+				this.setPosition( new cc.Point( pos.x+6 , pos.y-this.acceleration ) );
 			} else{
-						this.setPosition( new cc.Point( pos.x-5 , pos.y-this.a ) );
+				this.setPosition( new cc.Point( pos.x-6 , pos.y-this.acceleration ) );
 			}
 		}
 
