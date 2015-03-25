@@ -4,7 +4,8 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
  		
         var ball = new Ball();
-        ball.setPosition( new cc.Point(100,400) );
+        // ball.setPosition( new cc.Point(100,400) );
+        ball.setPosition( new cc.Point(0,0) );
         this.addChild( ball );
         ball.scheduleUpdate();
 
