@@ -1,7 +1,7 @@
 var Human = cc.Sprite.extend({
 	ctor: function(){
 		this._super();
-		this.initWithFile( 'res/images/p1.png' );
+		this.initWithFile( 'res/images/man1.png' );
 
 		Human.DIR = {
 			Front: 0,
@@ -17,15 +17,28 @@ var Human = cc.Sprite.extend({
 	// 	this.direction = direction;
 	// },
 
-	move: function(){
+	move: function( dt ){
 		var pos = this.getPosition();
-		// if( this.direction == Human.DIR.RIGHT ){
-		// 	console.log( 'Right' );
-		// }else if( this.direction == Human.DIR.LEFT ){
-		// 	console.log( 'Left' );
-		// }else{
 
-		// }
-		this.setPosition( new cc.Point( pos.x+50 , pos.y ) );
+		if( this.direction == Human.DIR.Front ){
+			this.setPosition( new cc.Point( pos.x , pos.y ) );
+        }
+
+		if( this.direction == Human.DIR.RIGHT ){
+			if ( pos.x < screenWidth ) {
+        	    this.setPosition( new cc.Point( pos.x + 5, pos.y ) );
+        	}
+		}
+
+		if( this.direction == Human.DIR.LEFT ){
+			if ( pos.x < screenWidth ) {
+        	    this.setPosition( new cc.Point( pos.x - 5, pos.y ) );
+        	}
+        }
+		// this.setPosition( new cc.Point( pos.x+50 , pos.y ) );
 	}
+
+	// update: function(){
+	// 	this.move();
+	// }
 });

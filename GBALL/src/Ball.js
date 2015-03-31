@@ -1,7 +1,7 @@
 var Ball = cc.Sprite.extend({
 	ctor: function(){
 		this._super();
-		this.initWithFile( 'res/images/ball.png' );
+		this.initWithFile( 'res/images/ball45.png' );
 		// this.state = 50;
 		this.acceleration = 5;
 		Ball.DIR = {
@@ -14,26 +14,25 @@ var Ball = cc.Sprite.extend({
 
 	update: function( dt ){
 		var pos = this.getPosition();
-		
+
 		// this.a -= 1
-		
-		if( pos.y > 180 ) this.acceleration += 1;
+		if( pos.y > 200 ) this.acceleration += 1;
 		else this.acceleration -= 1;
 
 
 		if( this.direction == Ball.DIR.RIGHT ){
-			if( pos.x > screenWidth ){
+			if( pos.x > screenWidth-30 ){
 				this.direction = Ball.DIR.LEFT;
-				this.setPosition( new cc.Point( pos.x-6 , pos.y-this.acceleration ) );
+				this.setPosition( new cc.Point( pos.x-3 , pos.y-this.acceleration ) );
 			} else{
-				this.setPosition( new cc.Point( pos.x+6 , pos.y-this.acceleration ) );
+				this.setPosition( new cc.Point( pos.x+3 , pos.y-this.acceleration ) );
 			}
 		} else{
-			if( pos.x < 0 ){
+			if( pos.x < 30 ){
 				this.direction = Ball.DIR.RIGHT;
-				this.setPosition( new cc.Point( pos.x+6 , pos.y-this.acceleration ) );
+				this.setPosition( new cc.Point( pos.x+3 , pos.y-this.acceleration ) );
 			} else{
-				this.setPosition( new cc.Point( pos.x-6 , pos.y-this.acceleration ) );
+				this.setPosition( new cc.Point( pos.x-3 , pos.y-this.acceleration ) );
 			}
 		}
 

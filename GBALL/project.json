@@ -14,6 +14,7 @@
         "src/resource.js",
         "src/GameLayer.js",
         "src/Ball.js",
-        "src/Human.js"
+        "src/Human.js",
+        "src/Bullet.js"
     ]
 }
