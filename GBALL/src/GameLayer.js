@@ -3,16 +3,16 @@ var GameLayer = cc.LayerColor.extend({
         this._super( new cc.Color( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
  		
-        var human = new Human();
-        human.setPosition( new cc.Point(120,45) );
-        this.addChild( human );
-        human.scheduleUpdate();
+        this.human = new Human();
+        this.human.setPosition( new cc.Point(120,45) );
+        this.addChild( this.human );
+        this.human.scheduleUpdate();
 
-        var ball = new Ball();
+        this.ball = new Ball();
         // ball.setPosition( new cc.Point(100,400) );
-        ball.setPosition( new cc.Point(100,30) );
-        this.addChild( ball );
-        ball.scheduleUpdate();
+        this.ball.setPosition( new cc.Point(100,30) );
+        this.addChild( this.ball );
+        this.ball.scheduleUpdate();
 
         this.addKeyboardHandlers();      
         
@@ -28,12 +28,12 @@ var GameLayer = cc.LayerColor.extend({
 
         if( keyCode == cc.KEY.right ){
             console.log( 'Right' );
-            // this.human.direction = Human.DIR.RIGHT;
+            this.human.direction = Human.DIR.RIGHT;
             // this.human.setDirection( keyCode );
             this.human.move();
         }else if( keyCode == cc.KEY.left ){
             console.log( 'Left' );
-            // this.human.direction = Human.DIR.LEFT;
+            this.human.direction = Human.DIR.LEFT;
             // this.human.setDirection( keyCode );
             this.human.move();
         }
