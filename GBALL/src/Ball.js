@@ -4,11 +4,6 @@ var Ball = cc.Sprite.extend({
 		this.initWithFile( 'res/images/ball45.png' );
 		// this.state = 50;
 		this.velocity = 5;
-		Ball.DIR = {
-			RIGHT: 1,
-			LEFT: 2
-		};
-
 		this.direction = Ball.DIR.RIGHT
 	},
 
@@ -44,3 +39,8 @@ var Ball = cc.Sprite.extend({
 		// }
 	}
 });
+
+Ball.DIR = {
+		RIGHT: 1,
+		LEFT: 2
+};

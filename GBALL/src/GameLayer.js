@@ -9,8 +9,8 @@ var GameLayer = cc.LayerColor.extend({
         this.human.scheduleUpdate();
 
         this.ball = new Ball();
-        // ball.setPosition( new cc.Point(100,400) );
-        this.ball.setPosition( new cc.Point(100,30) );
+        this.ball.setPosition( new cc.Point(100,400) );
+        // this.ball.setPosition( new cc.Point(100,30) );
         this.addChild( this.ball );
         this.ball.scheduleUpdate();
 
@@ -20,27 +20,28 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function( keyCode , event ){
+        var humanPos = this.human.getPosition();
         if( keyCode == cc.KEY.space ){
-            var bullet = new Bullet();
-            bullet.setPosition( new cc.Point( this.human.pos.x , 50) );
-            this.addChild( bullet );
+            this.bullet = new Bullet();
+            this.bullet.setPosition( new cc.Point( humanPos.x , 50) );
+            this.addChild( this.bullet );
+            this.bullet.scheduleUpdate();
         }
 
         if( keyCode == cc.KEY.right ){
             console.log( 'Right' );
             this.human.direction = Human.DIR.RIGHT;
-            // this.human.setDirection( keyCode );
             this.human.move();
         }else if( keyCode == cc.KEY.left ){
             console.log( 'Left' );
             this.human.direction = Human.DIR.LEFT;
-            // this.human.setDirection( keyCode );
             this.human.move();
         }
     },
 
     onKeyUp: function( keyCode , event ){
         console.log( 'Up: ' + keyCode.toString() );
+        this.human.direction = Human.DIR.FRONT;
     },
 
     addKeyboardHandlers: function(){
