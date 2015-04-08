@@ -22,13 +22,12 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown: function( keyCode , event ){
         var humanPos = this.human.getPosition();
         if( keyCode == cc.KEY.space ){
-            this.bullet = new Bullet();
+            this.bullet = new Bullet(this.ball);
             this.bullet.setPosition( new cc.Point( humanPos.x , 50) );
             this.addChild( this.bullet );
             this.bullet.scheduleUpdate();
         }
-
-        if( keyCode == cc.KEY.right ){
+        else if( keyCode == cc.KEY.right ){
             console.log( 'Right' );
             this.human.direction = Human.DIR.RIGHT;
             this.human.move();
@@ -55,6 +54,16 @@ var GameLayer = cc.LayerColor.extend({
                 self.onKeyUp( keyCode , event );
             }
         },this);
+    },
+
+    update :function(){
+        // if( this.ball.closeTo( this.bullet ) ){
+        //     console.log("hit");
+        //     this.ball2 = new Ball();
+        //     this.setPosition( new cc.Point( 100 , 400 ) );
+        //     this.addChild( this.ball2 );
+        //     this.ball2.scheduleUpdate();
+        // }
     }
 
 });

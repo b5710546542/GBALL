@@ -33,10 +33,24 @@ var Ball = cc.Sprite.extend({
 				this.setPosition( new cc.Point( pos.x-3 , pos.y+this.velocity ) );
 			}
 		}
+	},
 
-		// if( pos.y < 0 ){
-		// 	this.setPosition( new cc.Point( pos.x , pos.y+5 ) );
-		// }
+	// closeTo: function( obj ){
+	// 	var myPos = this.getPosition();
+	// 	var oPos = obj.getPosition();
+	// 	return ( ( Math.abs(myPos.x - oPos.x ) <= 30 ) ||
+	// 		( Math.abs(myPos.y - oPos.y ) <= 30 ) );
+	// },
+	getRect:function(){
+		 var spriteRect = this.getBoundingBoxToWorld();
+        var spritePos = this.getPosition();
+
+        var dX = this.x - spritePos.x;
+        var dY = this.y - spritePos.y;
+        return cc.rect( spriteRect.x + dX,
+                        spriteRect.y + dY,
+                        spriteRect.width,
+                        spriteRect.height );
 	}
 });
 
