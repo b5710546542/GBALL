@@ -3,7 +3,7 @@ var Bullet = cc.Sprite.extend({
 		this._super();
 		this.ball = ball;
 		this.initWithFile( 'res/images/BulletTest.png' );
-		this.numberOfBullet = 1;
+		// this.numberOfBullet = 1;
 	},
 
 	update: function(dt){
@@ -14,18 +14,20 @@ var Bullet = cc.Sprite.extend({
 
 	checkNumberOfBullet: function(){
 		if(this.y > screenHeight){
-			this.updateNumberOfBullet();
+			this.removeFromParent();
+			// this.numberOfBullet = 1;
 		}
 		else if(this.checkCollision( this.ball.getRect()) ){
-			console.log('hit');
+			// this.ball.createNewBall(this.ball.getPosition);
+			this.ball.setPosition(new cc.Point(1000,1000));
 			this.ball.removeFromParent();
-			this.updateNumberOfBullet();
-		}
-	},
 
-	updateNumberOfBullet: function(){
-		this.removeFromParent();
-		this.numberOfBullet = 1;
+			this.setPosition(new cc.Point(1000,1000));
+			this.removeFromParent();
+			// this.ball = new Ball();
+			// this.ball.setDirection(Ball.DIR.RIGHT);
+			// this.updateNumberOfBullet();
+		}
 	},
 
 	move: function(){
