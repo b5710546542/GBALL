@@ -10,7 +10,7 @@ var GameLayer = cc.LayerColor.extend({
         this.human.scheduleUpdate();
 
         this.arrayBall = [];
-
+        this.createBall();
         // this.ball = new Ball();
         // this.ball.setDirection(Ball.DIR.RIGHT);
         // this.ball = new SecondBall();
@@ -24,12 +24,12 @@ var GameLayer = cc.LayerColor.extend({
 
         this.numberOfBullet = 1;
 
-        this.addKeyboardHandlers();      
-        // this.scheduleUpdate();
+        this.addKeyboardHandlers();    
 
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
         this.scoreLabel.setPosition( new cc.Point( 750, 350 ) );
         this.addChild( this.scoreLabel );
+
         this.scheduleUpdate();
         return true;
     },
@@ -56,16 +56,17 @@ var GameLayer = cc.LayerColor.extend({
 
         if( keyCode == cc.KEY.right ){
             this.human.direction = Human.DIR.RIGHT;
-            if(!this.human.isRunning){
-                this.animation();
-                this.human.isRunning = true;
-            }
+            this.checkRuning();
         }else if( keyCode == cc.KEY.left ){
             this.human.direction = Human.DIR.LEFT;
-            if(!this.human.isRunning){
-                this.animation();
-                this.human.isRunning = true;
-            }
+            this.checkRuning();
+        }
+    },
+
+    checkRuning: function(){
+        if(!this.human.isRunning){
+            this.animation();
+            this.human.isRunning = true;
         }
     },
 
@@ -90,9 +91,10 @@ var GameLayer = cc.LayerColor.extend({
 
     shooting: function( humanPos , keyCode , event ){
         if(this.numberOfBullet == 1 && keyCode == cc.KEY.space ){
-            this.createBullet( humanPos);
+            this.createBullet( humanPos );
             // this.numberOfBullet = 0;
-
+        // }else {
+        //     this.numberOfBullet = 1;
         }
     },
 
@@ -105,12 +107,17 @@ var GameLayer = cc.LayerColor.extend({
 
     update :function(dt){
         // this.numberOfBullet = 1;
-        // if ( this.bullet.checkCollision {
-        //     this.createBall();
-        //     score += 5;
-        //     this.scoreLabel.setString( score );
-        // }
+        if( this.bullet != null ){
+            if ( this.bullet.getCollection() ) {
+                // this.createBall();
+                console.log("score++");
+                score += 5;
+                this.bullet.setCollection( false );
+                this.scoreLabel.setString( score );
+            }
+        }
         // console.log(dt)
+        // if( ball.)
         if(dt > 0.019)
             this.createBall();
     }

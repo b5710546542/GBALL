@@ -2,10 +2,8 @@ var Ball = cc.Sprite.extend({
 	ctor: function(){
 		this._super();
 		this.initWithFile( 'res/images/ball45.png' );
-		// this.state = 50;
 		this.velocity = 5;
-		// this.setDirection( Ball.DIR.RIGHT );
-		// this.array = [];
+
 	},
 
 	setDirection: function( direction ){
@@ -49,30 +47,7 @@ var Ball = cc.Sprite.extend({
                         spriteRect.y + dY,
                         spriteRect.width,
                         spriteRect.height );
-	},
-
-	// createNewBall: function( oldBallPos ){
-	// 	console.log("fghj");
-		// var pos = oldBallPos;
-		// GameLayer.ball = new Ball();
-		// GameLayer.ball.setDirection(Ball.DIR.RIGHT);
-		// GameLayer.ball.setPosition( new cc.Point( pos.x , pos.y ) );
-  //       GameLayer.addChild( GameLayer.ball );
-  //       GameLayer.ball.scheduleUpdate();
-
-
-		// GameLayer.ballr = new Ball();
-		// GameLayer.ballr.setDirection(Ball.DIR.LEFT);
-		// GameLayer.ballr.setPosition( new cc.Point( pos.x , pos.y ) );
-  //       GameLayer.addChild( GameLayer.ballr );
-  //       GameLayer.ballr.scheduleUpdate();
-  
-  //       this.balll = new Ball();
-		// this.balll.setDirection(Ball.DIR.LEFT);
-		// this.balll.setPosition( new cc.Point( pos.x , pos.y ) );
-  //       this.addChild( this.balll );
-  //       this.balll.scheduleUpdate();
-	// }
+	}
 
 });
 

@@ -2,29 +2,20 @@ var Bullet = cc.Sprite.extend({
 	ctor: function(arrayBall){
 		this._super();
 		this.arrayBall = arrayBall;
+		this.collision = false;
 		this.initWithFile( 'res/images/BulletTest.png' );
 	},
 
 	update: function(dt){
 		this.move();
 		this.checkBoundOfBullet();
-		
+		this.checkCollision( this.arrayBall );
+		this.getCollection();
 	},
 
 	checkBoundOfBullet: function(){
 		if(this.y > screenHeight){
 			this.removeFromParent();
-		}
-		
-		for( var i = 0; i < this.arrayBall.length ; i++){
-			if(this.checkCollision( this.arrayBall[i].getRect() ) ){
-				console.log(i);
-				this.arrayBall[i].setPosition(new cc.Point(1000,1000));
-				this.arrayBall[i].removeFromParent();
-				this.setPosition(new cc.Point(1000,1000));
-				this.removeFromParent();
-			}
-
 		}
 	},
 
@@ -45,7 +36,26 @@ var Bullet = cc.Sprite.extend({
                         spriteRect.height );
 	},
 
-	checkCollision: function(Rect){
-		return cc.rectOverlapsRect(this.getRect(),Rect);
+	getCollection: function(){
+		return this.collision;
+	},
+
+	setCollection: function(collision){
+		this.collision = collision;
+	},
+
+	checkCollision: function( arrayBall ){
+		// console.log(this.arrayBall.length)
+		for( var i = 0; i < this.arrayBall.length ; i++){
+			if( cc.rectOverlapsRect( this.getRect() , arrayBall[i].getRect() ) ){
+				console.log("hit");
+				this.arrayBall[i].setPosition(new cc.Point(1000,1000));
+				this.arrayBall[i].removeFromParent();
+				this.setPosition(new cc.Point(1000,1000));
+				this.removeFromParent();
+				this.collision =  true;
+			}
+		}
+		return this.collision;
 	}
 });
