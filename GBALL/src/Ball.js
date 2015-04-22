@@ -51,14 +51,14 @@ var Ball = cc.Sprite.extend({
                         spriteRect.height );
 	},
 
-	createNewBall: function( oldBallPos ){
-		console.log("fghj");
+	// createNewBall: function( oldBallPos ){
+	// 	console.log("fghj");
 		// var pos = oldBallPos;
-		// GameLayer.ballr = new Ball();
-		// GameLayer.ballr.setDirection(Ball.DIR.RIGHT);
-		// GameLayer.ballr.setPosition( new cc.Point( pos.x , pos.y ) );
-  //       GameLayer.addChild( GameLayer.ballr );
-  //       GameLayer.ballr.scheduleUpdate();
+		// GameLayer.ball = new Ball();
+		// GameLayer.ball.setDirection(Ball.DIR.RIGHT);
+		// GameLayer.ball.setPosition( new cc.Point( pos.x , pos.y ) );
+  //       GameLayer.addChild( GameLayer.ball );
+  //       GameLayer.ball.scheduleUpdate();
 
 
 		// GameLayer.ballr = new Ball();
@@ -72,7 +72,7 @@ var Ball = cc.Sprite.extend({
 		// this.balll.setPosition( new cc.Point( pos.x , pos.y ) );
   //       this.addChild( this.balll );
   //       this.balll.scheduleUpdate();
-	}
+	// }
 
 });
 

@@ -15,6 +15,7 @@
         "src/GameLayer.js",
         "src/Ball.js",
         "src/Human.js",
-        "src/Bullet.js"
+        "src/Bullet.js",
+        "src/SecondBall.js"
     ]
 }

@@ -1,3 +1,4 @@
+var score = 0;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         this._super( new cc.Color( 127, 127, 127, 255 ) );
@@ -10,14 +11,30 @@ var GameLayer = cc.LayerColor.extend({
 
         this.ball = new Ball();
         this.ball.setDirection(Ball.DIR.RIGHT);
+        // this.ball = new SecondBall();
+        // this.ball.setDirection(SecondBall.DIR.RIGHT);
         // this.ball.setPosition( new cc.Point(100,400) );
         this.ball.setPosition( new cc.Point(100,30) );
         this.addChild( this.ball );
         this.ball.scheduleUpdate();
 
+        this.numberOfBullet = 1;
+
         this.addKeyboardHandlers();      
-        
+        // this.scheduleUpdate();
+
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+        this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+        this.addChild( this.scoreLabel );
+
         return true;
+    },
+
+    animation:function(){
+        this.human.stopAction( this.human.movingAction );
+        this.human.movingAction = this.human.createAnimationAction( this.human.direction );
+        this.human.move();
+        this.human.runAction( this.human.movingAction );
     },
 
     onKeyDown: function( keyCode , event ){
@@ -26,25 +43,16 @@ var GameLayer = cc.LayerColor.extend({
 
         if( keyCode == cc.KEY.right ){
             this.human.direction = Human.DIR.RIGHT;
-            this.human.stopAction( this.human.movingAction );
-            this.human.movingAction = this.human.createAnimationAction( this.human.direction );
-            this.human.move();
-            this.human.runAction( this.human.movingAction );
+            this.animation();
         }else if( keyCode == cc.KEY.left ){
             this.human.direction = Human.DIR.LEFT;
-            this.human.stopAction( this.human.movingAction );
-            this.human.movingAction = this.human.createAnimationAction( this.human.direction );
-            this.human.move();
-            this.human.runAction( this.human.movingAction );
+            this.animation();
         }
     },
 
     onKeyUp: function( keyCode , event ){
         this.human.direction = Human.DIR.FRONT;
-        this.human.stopAction( this.human.movingAction );
-        this.human.movingAction = this.human.createAnimationAction( this.human.direction );
-        this.human.move();
-        this.human.runAction( this.human.movingAction );
+        this.animation();
     },
 
     addKeyboardHandlers: function(){
@@ -61,8 +69,10 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     shooting: function( humanPos , keyCode , event ){
-        if( keyCode == cc.KEY.space ){
+        if(this.numberOfBullet == 1 && keyCode == cc.KEY.space ){
             this.createBullet( humanPos);
+            // this.numberOfBullet = 0;
+
         }
     },
 
@@ -74,7 +84,12 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     update :function(){
-       
+        // this.numberOfBullet = 1;
+        if ( this.bullet.checkCollision( this.ball.getRect() ) ) {
+            
+            score += 5;
+            this.scoreLabel.setString( score );
+        }
     }
 
 });

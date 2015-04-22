@@ -8,22 +8,22 @@ var Bullet = cc.Sprite.extend({
 
 	update: function(dt){
 		this.move();
-		this.checkNumberOfBullet();
+		this.checkBoundOfBullet();
 		
 	},
 
-	checkNumberOfBullet: function(){
+	checkBoundOfBullet: function(){
 		if(this.y > screenHeight){
 			this.removeFromParent();
-			// this.numberOfBullet = 1;
 		}
-		else if(this.checkCollision( this.ball.getRect()) ){
+		else if(this.checkCollision( this.ball.getRect() ) ){
 			// this.ball.createNewBall(this.ball.getPosition);
 			this.ball.setPosition(new cc.Point(1000,1000));
 			this.ball.removeFromParent();
 
 			this.setPosition(new cc.Point(1000,1000));
 			this.removeFromParent();
+			
 			// this.ball = new Ball();
 			// this.ball.setDirection(Ball.DIR.RIGHT);
 			// this.updateNumberOfBullet();
