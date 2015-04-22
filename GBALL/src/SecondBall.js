@@ -23,14 +23,14 @@ var SecondBall = cc.Sprite.extend({
 		} 
 
 		if( this.direction == SecondBall.DIR.RIGHT ){
-			if( pos.x > screenWidth-30 ){
+			if( pos.x > screenWidth ){
 				this.direction = SecondBall.DIR.LEFT;
 				this.setPosition( new cc.Point( pos.x-3 , pos.y+this.velocity ) );
 			} else{
 				this.setPosition( new cc.Point( pos.x+3 , pos.y+this.velocity ) );
 			}
 		} else{
-			if( pos.x < 30 ){
+			if( pos.x < 0 ){
 				this.direction = SecondBall.DIR.RIGHT;
 				this.setPosition( new cc.Point( pos.x+3 , pos.y+this.velocity ) );
 			} else{

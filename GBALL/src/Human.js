@@ -4,7 +4,7 @@ var Human = cc.Sprite.extend({
 		this.initWithFile( 'res/images/man1.png' );
 
 		this.direction = Human.DIR.FRONT;
-
+		this.isRunning = false;
 
 		this.movingAction = this.createAnimationAction( this.direction );
 		this.runAction( this.movingAction );
@@ -13,25 +13,15 @@ var Human = cc.Sprite.extend({
 	createAnimationAction: function( direction ) {
 		var animation = new cc.Animation.create();
 		if( direction == Human.DIR.FRONT ){
-			// console.log( "front" );
 			animation.addSpriteFrameWithFile( 'res/images/man6.png' );
 			animation.addSpriteFrameWithFile( 'res/images/man7.png' );
-			// animation.addSpriteFrameWithFile( 'res/images/man7.png' );
-			// animation.setDelayPerUnit( 0.2 );
 		}else if( direction == Human.DIR.RIGHT ){
-			// console.log( "right" );
 			animation.addSpriteFrameWithFile( 'res/images/man4.png' );
 			animation.addSpriteFrameWithFile( 'res/images/man5.png' );
-			// animation.addSpriteFrameWithFile( 'res/images/man7.png' );
-			// animation.setDelayPerUnit( 0.1 );
 		}else if( direction == Human.DIR.LEFT ){
-			// console.log( "left" );
 			animation.addSpriteFrameWithFile( 'res/images/man2.png' );
 			animation.addSpriteFrameWithFile( 'res/images/man3.png' );
-			// animation.addSpriteFrameWithFile( 'res/images/man7.png' );
-			// animation.setDelayPerUnit( 0.1 );
 		}
-		// console.log( animation.getDelayPerUnit() );
 		animation.setDelayPerUnit( 0.2 );
 		return cc.RepeatForever.create( cc.Animate.create( animation ) );
 		

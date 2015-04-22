@@ -9,14 +9,18 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.human );
         this.human.scheduleUpdate();
 
-        this.ball = new Ball();
-        this.ball.setDirection(Ball.DIR.RIGHT);
+        this.arrayBall = [];
+
+        // this.ball = new Ball();
+        // this.ball.setDirection(Ball.DIR.RIGHT);
         // this.ball = new SecondBall();
         // this.ball.setDirection(SecondBall.DIR.RIGHT);
+
         // this.ball.setPosition( new cc.Point(100,400) );
-        this.ball.setPosition( new cc.Point(100,30) );
-        this.addChild( this.ball );
-        this.ball.scheduleUpdate();
+        // this.ball.setPosition( new cc.Point(100,30) );
+
+        // this.addChild( this.arrayBall );
+        // this.ball.scheduleUpdate();
 
         this.numberOfBullet = 1;
 
@@ -24,13 +28,22 @@ var GameLayer = cc.LayerColor.extend({
         // this.scheduleUpdate();
 
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+        this.scoreLabel.setPosition( new cc.Point( 750, 350 ) );
         this.addChild( this.scoreLabel );
-
+        this.scheduleUpdate();
         return true;
     },
 
-    animation:function(){
+    createBall: function(){
+        var ball = new Ball();
+        ball.setDirection(Ball.DIR.RIGHT);
+        ball.setPosition( new cc.Point(100,30) );
+        this.addChild(ball);
+        this.arrayBall.push(ball);
+        ball.scheduleUpdate();
+    },
+
+    animation: function(){
         this.human.stopAction( this.human.movingAction );
         this.human.movingAction = this.human.createAnimationAction( this.human.direction );
         this.human.move();
@@ -43,15 +56,22 @@ var GameLayer = cc.LayerColor.extend({
 
         if( keyCode == cc.KEY.right ){
             this.human.direction = Human.DIR.RIGHT;
-            this.animation();
+            if(!this.human.isRunning){
+                this.animation();
+                this.human.isRunning = true;
+            }
         }else if( keyCode == cc.KEY.left ){
             this.human.direction = Human.DIR.LEFT;
-            this.animation();
+            if(!this.human.isRunning){
+                this.animation();
+                this.human.isRunning = true;
+            }
         }
     },
 
     onKeyUp: function( keyCode , event ){
         this.human.direction = Human.DIR.FRONT;
+        this.human.isRunning = false;
         this.animation();
     },
 
@@ -77,19 +97,22 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBullet: function( humanPos ){
-        this.bullet = new Bullet(this.ball);
+        this.bullet = new Bullet(this.arrayBall);
         this.bullet.setPosition( new cc.Point( humanPos.x , 50) );
         this.addChild( this.bullet );
         this.bullet.scheduleUpdate();
     },
 
-    update :function(){
+    update :function(dt){
         // this.numberOfBullet = 1;
-        if ( this.bullet.checkCollision( this.ball.getRect() ) ) {
-            
-            score += 5;
-            this.scoreLabel.setString( score );
-        }
+        // if ( this.bullet.checkCollision {
+        //     this.createBall();
+        //     score += 5;
+        //     this.scoreLabel.setString( score );
+        // }
+        console.log(dt)
+        if(dt > 0.017)
+            this.createBall();
     }
 
 });
