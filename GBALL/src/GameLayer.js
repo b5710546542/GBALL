@@ -110,8 +110,8 @@ var GameLayer = cc.LayerColor.extend({
         //     score += 5;
         //     this.scoreLabel.setString( score );
         // }
-        console.log(dt)
-        if(dt > 0.017)
+        // console.log(dt)
+        if(dt > 0.019)
             this.createBall();
     }
 
