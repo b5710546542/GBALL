@@ -1,4 +1,5 @@
 var res = {
+	bg : 'res/images/Background.png'
 };
 
 var g_resources = [];

@@ -1,4 +1,5 @@
 var score = 0;
+var numberOfBullet = 0;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         this._super( new cc.Color( 127, 127, 127, 255 ) );
@@ -21,8 +22,8 @@ var GameLayer = cc.LayerColor.extend({
         // this.arrayBall.push(ball);
         // ball.scheduleUpdate();
 
-        var ball = new Ball();
-        ball.setDirection(Ball.DIR.RIGHT);
+        var ball = new SecondBall();
+        ball.setDirection(SecondBall.DIR.RIGHT);
         ball.setPosition( new cc.Point(500,400) );
         this.addChild(ball);
         this.arrayBall.push(ball);
@@ -39,7 +40,7 @@ var GameLayer = cc.LayerColor.extend({
         // this.addChild( this.arrayBall );
         // this.ball.scheduleUpdate();
 
-        this.numberOfBullet = 1;
+        // this.numberOfBullet = 0;
 
         this.addKeyboardHandlers();    
 
@@ -114,8 +115,9 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     shooting: function( humanPos , keyCode , event ){
-        if(this.numberOfBullet == 1 && keyCode == cc.KEY.space ){
+        if(numberOfBullet == 0 && keyCode == cc.KEY.space ){
             this.createBullet( humanPos );
+            numberOfBullet = 1;
         }
     },
 

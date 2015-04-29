@@ -16,6 +16,8 @@
         "src/Ball.js",
         "src/Human.js",
         "src/Bullet.js",
-        "src/SecondBall.js"
+        "src/SecondBall.js",
+        "src/ThirdBall.js",
+        "src/Menu.js"
     ]
 }

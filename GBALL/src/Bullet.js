@@ -57,9 +57,11 @@ var Bullet = cc.Sprite.extend({
 				this.arrayBall.splice(i,1);
 				this.setPosition(new cc.Point(1000,1000));
 				this.removeFromParent();
+
 				this.collision =  true;
 			}
 		}
+		numberOfBullet = 0;
 		}
 		return this.collision;
 	}
