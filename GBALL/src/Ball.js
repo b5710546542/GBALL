@@ -1,7 +1,7 @@
 var Ball = cc.Sprite.extend({
 	ctor: function(){
 		this._super();
-		this.initWithFile( 'res/images/ball45.png' );
+		this.initWithFile( 'res/images/b45.png' );
 		this.velocity = 5;
 
 	},
@@ -11,8 +11,9 @@ var Ball = cc.Sprite.extend({
 	},
 
 	update: function( dt ){
+		
 		var pos = this.getPosition();
-
+		this.setRotation( pos.x );
 		if( pos.y > 200 ){
 			this.velocity -= 1;
 		} 

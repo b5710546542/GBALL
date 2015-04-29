@@ -3,14 +3,31 @@ var GameLayer = cc.LayerColor.extend({
     init: function() {
         this._super( new cc.Color( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
- 		
+ 		this.setBackground = new cc.Sprite.create( 'res/images/bgg.png' );
+        this.setBackground.setPosition( new cc.Point(screenWidth/2 , screenHeight/2) )
+        this.addChild(this.setBackground);
+
         this.human = new Human();
         this.human.setPosition( new cc.Point(120,45) );
         this.addChild( this.human );
         this.human.scheduleUpdate();
 
         this.arrayBall = [];
-        this.createBall();
+
+        // var ball = new SecondBall();
+        // ball.setDirection(SecondBall.DIR.RIGHT);
+        // ball.setPosition( new cc.Point(500,400) );
+        // this.addChild(ball);
+        // this.arrayBall.push(ball);
+        // ball.scheduleUpdate();
+
+        var ball = new Ball();
+        ball.setDirection(Ball.DIR.RIGHT);
+        ball.setPosition( new cc.Point(500,400) );
+        this.addChild(ball);
+        this.arrayBall.push(ball);
+        ball.scheduleUpdate();
+
         // this.ball = new Ball();
         // this.ball.setDirection(Ball.DIR.RIGHT);
         // this.ball = new SecondBall();
@@ -34,10 +51,17 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
 
-    createBall: function(){
+    createBall: function(ballpos){
         var ball = new Ball();
         ball.setDirection(Ball.DIR.RIGHT);
-        ball.setPosition( new cc.Point(100,30) );
+        ball.setPosition( new cc.Point(ballpos.x,ballpos.y) );
+        this.addChild(ball);
+        this.arrayBall.push(ball);
+        ball.scheduleUpdate();
+
+        var ball = new Ball();
+        ball.setDirection(Ball.DIR.LEFT);
+        ball.setPosition( new cc.Point(ballpos.x,ballpos.y) );
         this.addChild(ball);
         this.arrayBall.push(ball);
         ball.scheduleUpdate();
@@ -92,9 +116,6 @@ var GameLayer = cc.LayerColor.extend({
     shooting: function( humanPos , keyCode , event ){
         if(this.numberOfBullet == 1 && keyCode == cc.KEY.space ){
             this.createBullet( humanPos );
-            // this.numberOfBullet = 0;
-        // }else {
-        //     this.numberOfBullet = 1;
         }
     },
 
@@ -106,20 +127,15 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     update :function(dt){
-        // this.numberOfBullet = 1;
         if( this.bullet != null ){
             if ( this.bullet.getCollection() ) {
-                // this.createBall();
-                console.log("score++");
                 score += 5;
                 this.bullet.setCollection( false );
                 this.scoreLabel.setString( score );
+                var ballpos = this.bullet.ball;
+                this.createBall(ballpos);
             }
         }
-        // console.log(dt)
-        // if( ball.)
-        if(dt > 0.019)
-            this.createBall();
     }
 
 });

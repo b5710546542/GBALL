@@ -4,6 +4,7 @@ var Bullet = cc.Sprite.extend({
 		this.arrayBall = arrayBall;
 		this.collision = false;
 		this.initWithFile( 'res/images/BulletTest.png' );
+		this.ball = null;
 	},
 
 	update: function(dt){
@@ -47,14 +48,18 @@ var Bullet = cc.Sprite.extend({
 	checkCollision: function( arrayBall ){
 		// console.log(this.arrayBall.length)
 		for( var i = 0; i < this.arrayBall.length ; i++){
+			if(this.arrayBall[i] != null){
 			if( cc.rectOverlapsRect( this.getRect() , arrayBall[i].getRect() ) ){
-				console.log("hit");
-				this.arrayBall[i].setPosition(new cc.Point(1000,1000));
-				this.arrayBall[i].removeFromParent();
+				// console.log("hit");
+				this.ball= this.arrayBall[i].getPosition();
+				// this.arrayBall[i].setPosition(new cc.Point(1000,1000));
+				this.arrayBall[i].removeFromParent(true);
+				this.arrayBall.splice(i,1);
 				this.setPosition(new cc.Point(1000,1000));
 				this.removeFromParent();
 				this.collision =  true;
 			}
+		}
 		}
 		return this.collision;
 	}
