@@ -15,32 +15,12 @@ var GameLayer = cc.LayerColor.extend({
 
         this.arrayBall = [];
 
-        // var ball = new SecondBall();
-        // ball.setDirection(SecondBall.DIR.RIGHT);
-        // ball.setPosition( new cc.Point(500,400) );
-        // this.addChild(ball);
-        // this.arrayBall.push(ball);
-        // ball.scheduleUpdate();
-
-        var ball = new SecondBall();
-        ball.setDirection(SecondBall.DIR.RIGHT);
+        var ball = new Ball();
+        ball.setDirection( Ball.DIR.RIGHT );
         ball.setPosition( new cc.Point(500,400) );
         this.addChild(ball);
         this.arrayBall.push(ball);
         ball.scheduleUpdate();
-
-        // this.ball = new Ball();
-        // this.ball.setDirection(Ball.DIR.RIGHT);
-        // this.ball = new SecondBall();
-        // this.ball.setDirection(SecondBall.DIR.RIGHT);
-
-        // this.ball.setPosition( new cc.Point(100,400) );
-        // this.ball.setPosition( new cc.Point(100,30) );
-
-        // this.addChild( this.arrayBall );
-        // this.ball.scheduleUpdate();
-
-        // this.numberOfBullet = 0;
 
         this.addKeyboardHandlers();    
 
@@ -53,15 +33,15 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBall: function(ballpos){
-        var ball = new Ball();
-        ball.setDirection(Ball.DIR.RIGHT);
+        var ball = new ThirdBall();
+        ball.setDirection(ThirdBall.DIR.RIGHT);
         ball.setPosition( new cc.Point(ballpos.x,ballpos.y) );
         this.addChild(ball);
         this.arrayBall.push(ball);
         ball.scheduleUpdate();
 
-        var ball = new Ball();
-        ball.setDirection(Ball.DIR.LEFT);
+        var ball = new ThirdBall();
+        ball.setDirection(ThirdBall.DIR.LEFT);
         ball.setPosition( new cc.Point(ballpos.x,ballpos.y) );
         this.addChild(ball);
         this.arrayBall.push(ball);
@@ -77,12 +57,17 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function( keyCode , event ){
         var humanPos = this.human.getPosition();
-        this.shooting( humanPos , keyCode , event );
 
+        if( keyCode == cc.KEY.space && numberOfBullet == 0){
+            this.shooting( humanPos );
+        }
+        
         if( keyCode == cc.KEY.right ){
             this.human.direction = Human.DIR.RIGHT;
             this.checkRuning();
-        }else if( keyCode == cc.KEY.left ){
+        }
+        
+        if( keyCode == cc.KEY.left ){
             this.human.direction = Human.DIR.LEFT;
             this.checkRuning();
         }
@@ -114,11 +99,9 @@ var GameLayer = cc.LayerColor.extend({
         },this);
     },
 
-    shooting: function( humanPos , keyCode , event ){
-        if(numberOfBullet == 0 && keyCode == cc.KEY.space ){
-            this.createBullet( humanPos );
-            numberOfBullet = 1;
-        }
+    shooting: function( humanPos ){
+        this.createBullet( humanPos );
+        numberOfBullet = 1;
     },
 
     createBullet: function( humanPos ){
@@ -129,6 +112,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     update :function(dt){
+        numberOfBullet;
         if( this.bullet != null ){
             if ( this.bullet.getCollection() ) {
                 score += 5;

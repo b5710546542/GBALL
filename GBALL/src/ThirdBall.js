@@ -4,11 +4,13 @@ var ThirdBall = cc.Sprite.extend({
 		this.initWithFile( 'res/images/b45.png' );
 		// this.velocity = 5;
 		this.speedX = 5;
-		this.speedY = 5;
+		this.speedY = 6;
 	},
 
 	setDirection: function( direction ){
-		this.direction = direction;
+		if(direction == ThirdBall.DIR.RIGHT){
+            this.speedX *= -1;
+        }
 	},
 
 	update: function( dt ){
