@@ -40,7 +40,6 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(ball);
         this.arraySmallBall.push(ball);
         ball.scheduleUpdate();
-        console.log("add ball1");
 
         var ball = new ThirdBall();
         ball.setDirection(ThirdBall.DIR.LEFT);
@@ -48,7 +47,6 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(ball);
         this.arraySmallBall.push(ball);
         ball.scheduleUpdate();
-        console.log("add ball2");
     },
 
     animation: function(){
@@ -117,12 +115,17 @@ var GameLayer = cc.LayerColor.extend({
     update :function(dt){
         numberOfBullet;
         if( this.bullet != null ){
-            if ( this.bullet.getCollection() ) {
+            if ( this.bullet.getBigCollision() ) {
                 score += 5;
-                this.bullet.setCollection( false );
+                this.bullet.setBigCollision( false );
                 this.scoreLabel.setString( score );
                 var ballpos = this.bullet.ball;
                 this.createBall(ballpos);
+            }
+            else if( this.bullet.getSmallCollision() ){
+                score += 5;
+                this.bullet.setSmallCollision( false );
+                this.scoreLabel.setString( score );
             }
         }
     }

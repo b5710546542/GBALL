@@ -4,7 +4,9 @@ var Bullet = cc.Sprite.extend({
 		this.arrayBall = arrayBall;
 		this.arraySmallBall = arraySmallBall;
 		// console.log(this.arraySmallBall);
-		this.collision = false;
+		// this.collision = false;
+		this.bigCollision = false;
+		this.smallCollision = false;
 		this.initWithFile( 'res/images/BulletTest.png' );
 		this.ball = null;
 	},
@@ -12,9 +14,10 @@ var Bullet = cc.Sprite.extend({
 	update: function(dt){
 		this.move();
 		this.checkBoundOfBullet();
-		this.checkCollision( this.arrayBall );
-		this.checkCollision( this.arraySmallBall );
-		this.getCollection();
+		this.checkBigCollision( this.arrayBall );
+		this.checkSmallCollision( this.arraySmallBall );
+		this.getBigCollision();
+		this.getSmallCollision();
 	},
 
 	checkBoundOfBullet: function(){
@@ -41,15 +44,23 @@ var Bullet = cc.Sprite.extend({
                         spriteRect.height );
 	},
 
-	getCollection: function(){
-		return this.collision;
+	getBigCollision: function(){
+		return this.bigCollision;
 	},
 
-	setCollection: function(collision){
-		this.collision = collision;
+	setBigCollision: function(collision){
+		this.bigCollision = collision;
 	},
 
-	checkCollision: function( arrayBall ){
+	getSmallCollision: function(){
+		return this.smallCollision;
+	},
+
+	setSmallCollision: function(collision){
+		this.smallCollision = collision;
+	},
+
+	checkBigCollision: function( arrayBall ){
 		for( var i = 0; i < arrayBall.length ; i++){
 			if(arrayBall[i] != null){
                 if( cc.rectOverlapsRect( this.getRect() , arrayBall[i].getRect() ) ){
@@ -59,10 +70,28 @@ var Bullet = cc.Sprite.extend({
                     this.setPosition(new cc.Point(1000,1000));
                     this.removeFromParent();
                     numberOfBullet = 0;
-                    this.collision =  true;
+                    this.bigCollision =  true;
                 }
             }
 		}
-		return this.collision;
+		return this.bigCollision;
+	},
+
+	checkSmallCollision: function( arrayBall ){
+		for( var i = 0; i < arrayBall.length ; i++){
+			if(arrayBall[i] != null){
+                if( cc.rectOverlapsRect( this.getRect() , arrayBall[i].getRect() ) ){
+                    this.ball= arrayBall[i].getPosition();
+                    arrayBall[i].removeFromParent(true);
+                    arrayBall.splice(i,1);
+                    this.setPosition(new cc.Point(1000,1000));
+                    this.removeFromParent();
+                    numberOfBullet = 0;
+                    this.smallCollision =  true;
+                }
+            }
+		}
+		return this.smallCollision;
 	}
+
 });
