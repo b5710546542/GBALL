@@ -1,7 +1,7 @@
 var Ball = cc.Sprite.extend({
 	ctor: function(){
 		this._super();
-		this.initWithFile( 'res/images/b45.png' );
+		this.initWithFile( 'res/images/b90.png' );
 		this.velocity = 5;
 
 	},

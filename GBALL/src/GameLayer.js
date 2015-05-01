@@ -14,9 +14,10 @@ var GameLayer = cc.LayerColor.extend({
         this.human.scheduleUpdate();
 
         this.arrayBall = [];
+//        this.arraySmallBall = [];
 
-        var ball = new Ball();
-        ball.setDirection( Ball.DIR.RIGHT );
+        var ball = new SecondBall();
+        ball.setDirection( SecondBall.DIR.RIGHT );
         ball.setPosition( new cc.Point(500,400) );
         this.addChild(ball);
         this.arrayBall.push(ball);
