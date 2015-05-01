@@ -1,7 +1,9 @@
 var Bullet = cc.Sprite.extend({
-	ctor: function(arrayBall){
+	ctor: function(arrayBall , arraySmallBall){
 		this._super();
 		this.arrayBall = arrayBall;
+		this.arraySmallBall = arraySmallBall;
+		// console.log(this.arraySmallBall);
 		this.collision = false;
 		this.initWithFile( 'res/images/BulletTest.png' );
 		this.ball = null;
@@ -11,6 +13,7 @@ var Bullet = cc.Sprite.extend({
 		this.move();
 		this.checkBoundOfBullet();
 		this.checkCollision( this.arrayBall );
+		this.checkCollision( this.arraySmallBall );
 		this.getCollection();
 	},
 
@@ -47,12 +50,12 @@ var Bullet = cc.Sprite.extend({
 	},
 
 	checkCollision: function( arrayBall ){
-		for( var i = 0; i < this.arrayBall.length ; i++){
-			if(this.arrayBall[i] != null){
+		for( var i = 0; i < arrayBall.length ; i++){
+			if(arrayBall[i] != null){
                 if( cc.rectOverlapsRect( this.getRect() , arrayBall[i].getRect() ) ){
-                    this.ball= this.arrayBall[i].getPosition();
-                    this.arrayBall[i].removeFromParent(true);
-                    this.arrayBall.splice(i,1);
+                    this.ball= arrayBall[i].getPosition();
+                    arrayBall[i].removeFromParent(true);
+                    arrayBall.splice(i,1);
                     this.setPosition(new cc.Point(1000,1000));
                     this.removeFromParent();
                     numberOfBullet = 0;

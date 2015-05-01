@@ -14,7 +14,7 @@ var GameLayer = cc.LayerColor.extend({
         this.human.scheduleUpdate();
 
         this.arrayBall = [];
-//        this.arraySmallBall = [];
+        this.arraySmallBall = [];
 
         var ball = new SecondBall();
         ball.setDirection( SecondBall.DIR.RIGHT );
@@ -38,15 +38,17 @@ var GameLayer = cc.LayerColor.extend({
         ball.setDirection(ThirdBall.DIR.RIGHT);
         ball.setPosition( new cc.Point(ballpos.x,ballpos.y) );
         this.addChild(ball);
-        this.arrayBall.push(ball);
+        this.arraySmallBall.push(ball);
         ball.scheduleUpdate();
+        console.log("add ball1");
 
         var ball = new ThirdBall();
         ball.setDirection(ThirdBall.DIR.LEFT);
         ball.setPosition( new cc.Point(ballpos.x,ballpos.y) );
         this.addChild(ball);
-        this.arrayBall.push(ball);
+        this.arraySmallBall.push(ball);
         ball.scheduleUpdate();
+        console.log("add ball2");
     },
 
     animation: function(){
@@ -106,7 +108,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createBullet: function( humanPos ){
-        this.bullet = new Bullet(this.arrayBall);
+        this.bullet = new Bullet(this.arrayBall , this.arraySmallBall);
         this.bullet.setPosition( new cc.Point( humanPos.x , 50) );
         this.addChild( this.bullet );
         this.bullet.scheduleUpdate();
