@@ -1,8 +1,9 @@
 var ThirdBall = cc.Sprite.extend({
-	ctor: function(){
+	ctor: function(human){
 		this._super();
 		this.initWithFile( 'res/images/b45.png' );
 		// this.velocity = 5;
+		this.human = human;
 		this.speedX = 5;
 		this.speedY = 6;
 	},
@@ -15,6 +16,8 @@ var ThirdBall = cc.Sprite.extend({
 
 	update: function( dt ){
 		
+		this.checkCollision( this.human );
+
 		var pos = this.getPosition();
 		this.setRotation( pos.x );
 		if(pos.x < 30 || pos.x > screenWidth-30){
@@ -54,6 +57,12 @@ var ThirdBall = cc.Sprite.extend({
                         spriteRect.y + dY,
                         spriteRect.width,
                         spriteRect.height );
+	},
+
+	checkCollision: function(human){
+		if( cc.rectOverlapsRect( this.getRect() , human.getRect() ) ){
+			console.log("hit human");
+		}
 	}
 
 });

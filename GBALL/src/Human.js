@@ -59,6 +59,18 @@ var Human = cc.Sprite.extend({
     	}else if( pos.x >= 790 ){
     		this.setPosition( new cc.Point( pos.x - 1 , pos.y ) );
     	}
+	},
+
+	getRect: function(){
+		var spriteRect = this.getBoundingBoxToWorld();
+        var spritePos = this.getPosition();
+
+        var dX = this.x - spritePos.x;
+        var dY = this.y - spritePos.y;
+        return cc.rect( spriteRect.x + dX,
+                        spriteRect.y + dY,
+                        spriteRect.width,
+                        spriteRect.height );
 	}
 
 });

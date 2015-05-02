@@ -1,8 +1,9 @@
 var SecondBall = cc.Sprite.extend({
-	ctor: function(){
+	ctor: function(human){
 		this._super();
 		this.initWithFile( 'res/images/b90.png' );
 		this.velocity = 5;
+		this.human = human;
 
 	},
 
@@ -11,8 +12,12 @@ var SecondBall = cc.Sprite.extend({
 	},
 
 	update: function( dt ){
-		var pos = this.getPosition();
+		
+		this.checkCollision( this.human );
 
+		var pos = this.getPosition();
+        this.setRotation( pos.x );
+        
 		var y = Math.sqrt(Math.abs( Math.pow(400,2)-Math.pow(pos.x,2) ) );
 		if( y > 400 ){
 			y = Math.sqrt(Math.abs( Math.pow(400,2)-Math.pow(y%400,2) ) )
@@ -46,6 +51,12 @@ var SecondBall = cc.Sprite.extend({
                         spriteRect.width,
                         spriteRect.height );
 	},
+
+	checkCollision: function(human){
+		if( cc.rectOverlapsRect( this.getRect() , human.getRect() ) ){
+			console.log("hit human");
+		}
+	}
 
 });
 
