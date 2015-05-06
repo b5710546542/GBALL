@@ -12,8 +12,13 @@ var GameLayer = cc.LayerColor.extend({
         this.setBackground.setPosition( new cc.Point(screenWidth/2 , screenHeight/2) )
         this.addChild(this.setBackground);
 
+        this.hp = new cc.Sprite.create( 'res/images/HP.png' );
+        this.hp.setPosition( new cc.Point( 10 , 400  ));
+        this.hp.setAnchorPoint(0,0);
+        this.addChild( this.hp );
+        
         this.human = new Human();
-        this.human.setPosition( new cc.Point(120,45) );
+        this.human.setPosition( new cc.Point(100,45) );
         this.addChild( this.human );
         this.human.scheduleUpdate();
 
@@ -24,10 +29,7 @@ var GameLayer = cc.LayerColor.extend({
 
         this.addKeyboardHandlers();    
 
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 750, 380 ) );
-        this.addChild( this.scoreLabel );
-
+        this.createScoreLabel();
         this.scoreText = cc.LabelTTF.create( '0' , 'Arial' , 40);
         this.scoreText.setPosition( new cc.Point( 730 , 420 ) );
         this.addChild( this.scoreText );
@@ -39,6 +41,12 @@ var GameLayer = cc.LayerColor.extend({
         
         this.scheduleUpdate();
         return true;
+    },
+    
+    createScoreLabel: function(){
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+        this.scoreLabel.setPosition( new cc.Point( 750, 380 ) );
+        this.addChild( this.scoreLabel );
     },
     
     createBigBall: function(){
@@ -84,12 +92,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function( keyCode , event ){
-//        var humanPos = this.human.getPosition();
-//        
-//        this.shoot = false;
-//        this.turnRight = false;
-//        this.turnLeft = false;
-//        
+
         if(keyCode == cc.KEY.space){
             this.shoot = true;
         }
@@ -104,19 +107,6 @@ var GameLayer = cc.LayerColor.extend({
             
         }
         
-//        if( keyCode == cc.KEY.space && numberOfBullet == 0){
-//            this.shooting( humanPos );
-//        }
-//        
-//        if( keyCode == cc.KEY.right ){
-//            this.human.direction = Human.DIR.RIGHT;
-//            this.checkRuning();
-//        }
-//        
-//        if( keyCode == cc.KEY.left ){
-//            this.human.direction = Human.DIR.LEFT;
-//            this.checkRuning();
-//        }
     },
 
     checkRuning: function(){
@@ -169,10 +159,9 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     update :function(dt){
-        
+        this.hp.setScaleX(life/1000);
         this.countTime();
-//        this.timeLabel.setString( timer );
-        
+
         if( timer%10 == 0 && gameTime ){
             this.createBigBall();
             gameTime = false;
@@ -207,7 +196,6 @@ var GameLayer = cc.LayerColor.extend({
             this.human.direction = Human.DIR.RIGHT;
             this.checkRuning();
         }
-        
         if( this.turnLeft ){
             this.human.direction = Human.DIR.LEFT;
             this.checkRuning();
@@ -218,11 +206,10 @@ var GameLayer = cc.LayerColor.extend({
             isDecreaseLife = false;
             console.log(life);
         }
-        
         if( life <= 0 ){
             console.log('Game over')
         }
-        
+
     },
     
     countTime: function(){
