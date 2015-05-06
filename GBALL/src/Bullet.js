@@ -23,7 +23,7 @@ var Bullet = cc.Sprite.extend({
 	checkBoundOfBullet: function(){
 		if(this.y > screenHeight){
 			this.removeFromParent();
-            numberOfBullet = 0;
+            numberOfBullet = 1;
 		}
 	},
 
@@ -69,7 +69,7 @@ var Bullet = cc.Sprite.extend({
                     arrayBall.splice(i,1);
                     this.setPosition(new cc.Point(1000,1000));
                     this.removeFromParent();
-                    numberOfBullet = 0;
+                    numberOfBullet = 1;
                     this.bigCollision =  true;
                 }
             }
@@ -86,7 +86,7 @@ var Bullet = cc.Sprite.extend({
                     arrayBall.splice(i,1);
                     this.setPosition(new cc.Point(1000,1000));
                     this.removeFromParent();
-                    numberOfBullet = 0;
+                    numberOfBullet = 1;
                     this.smallCollision =  true;
                 }
             }

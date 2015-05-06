@@ -3,9 +3,11 @@ var gameTime = false;
 var time = 0;
 var timer = 0;
 var timeRate = 1;
-var numberOfBullet = 0;
+var numberOfBullet = 1;
+var checkBullet = 20;
 var life = 100;
 var isDecreaseLife = false;
+var increaseBullet = false;
 var GameLayer = cc.LayerColor.extend({
     init: function() {
         this._super( new cc.Color( 127, 127, 127, 255 ) );
@@ -21,15 +23,34 @@ var GameLayer = cc.LayerColor.extend({
         this.createHP();
         this.createScoreText();
         this.createScoreLabel();
-        this.createBigBall();
-        this.createBigBall();
         this.addKeyboardHandlers(); 
+        this.setStart();
+        this.createNumberBullet();
+        this.scheduleUpdate();
+        return true;
+    },
+    
+    setStart: function(){
+        this.hp.setScaleX(life/1000);
+        this.human.setPosition( new cc.Point(100,45) );
+        this.scoreLabel.setString( score );
+        this.createBigBall();
+        this.createBigBall();
         this.shoot = false;
         this.turnRight = false;
         this.turnLeft = false;
         
-        this.scheduleUpdate();
-        return true;
+        score = 0;
+        gameTime = false;
+        time = 0;
+        timer = 0;
+        timeRate = 1;
+        numberOfBullet = 1;
+        checkBullet = 20;
+        life = 1000;
+        isDecreaseLife = false;
+        
+        console.log(checkBullet);
     },
     
     createHP: function(){
@@ -57,6 +78,13 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreText.setPosition( new cc.Point( 730 , 420 ) );
         this.addChild( this.scoreText );
         this.scoreText.setString( "score" );
+    },
+    
+    createNumberBullet: function(){
+        this.numberBullet = cc.LabelTTF.create( '0' , 'Arial' , 40);
+        this.numberBullet.setPosition( new cc.Point( 550 , 420 ) );
+        this.addChild( this.numberBullet );
+        this.numberBullet.setString( checkBullet );
     },
     
     createBigBall: function(){
@@ -154,7 +182,8 @@ var GameLayer = cc.LayerColor.extend({
 
     shooting: function( humanPos ){
         this.createBullet( humanPos );
-        numberOfBullet = 1;
+        checkBullet--;
+        this.scoreText.setString( checkBullet );
     },
 
     createBullet: function( humanPos ){
@@ -194,8 +223,10 @@ var GameLayer = cc.LayerColor.extend({
     checkButton: function(){
         var humanPos = this.human.getPosition();
         
-        if( this.shoot && numberOfBullet == 0){
+        if( this.shoot && numberOfBullet == 1 && checkBullet > 0 && checkBullet <= 20 ){
             this.shooting( humanPos );
+            numberOfBullet = 0;
+            console.log(checkBullet);
         }
         if( this.turnRight ){
             this.human.direction = Human.DIR.RIGHT;
@@ -211,10 +242,8 @@ var GameLayer = cc.LayerColor.extend({
         if( isDecreaseLife ){
             life--;
             isDecreaseLife = false;
-            console.log(life);
         }
         if( life <= 0 ){
-            console.log('Game over')
             cc.director.runScene(new EndScene());
         }
     },
@@ -227,6 +256,13 @@ var GameLayer = cc.LayerColor.extend({
         if( timer%30 == 0 && timer != 0){
             timeRate++;
         }
+        if( timer%5 == 0 && increaseBullet ){
+            if(checkBullet < 20){
+                checkBullet++;
+            }
+            increaseBullet = false;
+            console.log('increase bullet');
+        }
     },
     
     countTime: function(){
@@ -234,6 +270,7 @@ var GameLayer = cc.LayerColor.extend({
         if(time%30 == 0){
             timer++;
             gameTime = true;
+            increaseBullet = true;
         }
     }
 
