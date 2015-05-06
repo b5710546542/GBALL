@@ -54,7 +54,8 @@ var Ball = cc.Sprite.extend({
     
     checkCollision: function(human){
 		if( cc.rectOverlapsRect( this.getRect() , human.getRect() ) ){
-			console.log("hit human");
+//			console.log("hit human");
+            isDecreaseLife = true;
 		}
 	}
 
