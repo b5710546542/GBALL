@@ -19,6 +19,9 @@
         "src/SecondBall.js",
         "src/ThirdBall.js",
         "src/Menu.js",
-        "src/End.js"
+        "src/End.js",
+        "src/NewGame.js",
+        "src/SpikeScree.js",
+        "src/Enter.js"
     ]
 }

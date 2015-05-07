@@ -5,7 +5,7 @@ var timer = 0;
 var timeRate = 1;
 var numberOfBullet = 1;
 var checkBullet = 20;
-var life = 100;
+var life = 1000;
 var isDecreaseLife = false;
 var increaseBullet = false;
 var GameLayer = cc.LayerColor.extend({
@@ -20,8 +20,8 @@ var GameLayer = cc.LayerColor.extend({
         this.arraySmallBall = [];
         
         this.createHuman();
+        this.createText();
         this.createHP();
-        this.createScoreText();
         this.createScoreLabel();
         this.addKeyboardHandlers(); 
         this.setStart();
@@ -55,7 +55,7 @@ var GameLayer = cc.LayerColor.extend({
     
     createHP: function(){
         this.hp = new cc.Sprite.create( 'res/images/HP.png' );
-        this.hp.setPosition( new cc.Point( 10 , 400  ));
+        this.hp.setPosition( new cc.Point( 75 , 390  ));
         this.hp.setAnchorPoint(0,0);
         this.addChild( this.hp );
     },
@@ -69,20 +69,28 @@ var GameLayer = cc.LayerColor.extend({
     
     createScoreLabel: function(){
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 750, 380 ) );
+        this.scoreLabel.setPosition( new cc.Point( 730, 400 ) );
         this.addChild( this.scoreLabel );
     },
     
-    createScoreText: function(){
-        this.scoreText = cc.LabelTTF.create( '0' , 'Arial' , 40);
-        this.scoreText.setPosition( new cc.Point( 730 , 420 ) );
+    createText: function(){
+        this.scoreText = new cc.Sprite.create( 'res/images/GameScore.png' );
+        this.scoreText.setPosition( new cc.Point( 700 , 400 ) );
         this.addChild( this.scoreText );
-        this.scoreText.setString( "score" );
+        
+        this.bulletText = new cc.Sprite.create( 'res/images/TabBullet.png' );
+        this.bulletText.setPosition( new cc.Point( 520 , 400 ) );
+        this.addChild( this.bulletText );
+        
+        this.backHP = new cc.Sprite.create( 'res/images/BackHP.png' );
+        this.backHP.setPosition( new cc.Point( 10 , 380 ) );
+        this.backHP.setAnchorPoint(0,0);
+        this.addChild( this.backHP );
     },
     
     createNumberBullet: function(){
         this.numberBullet = cc.LabelTTF.create( '0' , 'Arial' , 40);
-        this.numberBullet.setPosition( new cc.Point( 550 , 420 ) );
+        this.numberBullet.setPosition( new cc.Point( 550 , 400 ) );
         this.addChild( this.numberBullet );
         this.numberBullet.setString( checkBullet );
     },
@@ -183,7 +191,7 @@ var GameLayer = cc.LayerColor.extend({
     shooting: function( humanPos ){
         this.createBullet( humanPos );
         checkBullet--;
-        this.scoreText.setString( checkBullet );
+        this.numberBullet.setString( checkBullet );
     },
 
     createBullet: function( humanPos ){
@@ -258,7 +266,11 @@ var GameLayer = cc.LayerColor.extend({
         }
         if( timer%5 == 0 && increaseBullet ){
             if(checkBullet < 20){
-                checkBullet++;
+                checkBullet += 1;
+                    if(checkBullet < 20){
+                        checkBullet += 1;
+                    }
+                this.numberBullet.setString(checkBullet);
             }
             increaseBullet = false;
             console.log('increase bullet');
