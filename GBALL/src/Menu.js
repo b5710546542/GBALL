@@ -10,31 +10,39 @@ var Menu = cc.Layer.extend({
 		bg.setPosition( new cc.p(screenWidth/2,screenHeight/2) );
 		this.addChild(bg);
         
-        var logo = new cc.Sprite.create( 'res/images/logo2.png' );
-        logo.setPosition( new cc.Point( 200 , 300  ));
-        this.addChild( logo );
+        this.createLogo();
+        this.createTitle();
+        this.createNewGame();
+        this.createSpikeScree();
         
-        var title = new cc.Sprite.create( 'res/images/Title2.png' );
-        title.setPosition( new cc.Point( 440 , 350  ));
-        this.addChild( title );
-        
-        var newGame = new NewGame();
-        newGame.setPosition( new cc.Point( 250 , 140  ));
-        this.addChild( newGame );
-        newGame.scheduleUpdate();
-        
-        
+		this.addKeyboardHandlers();
+	},
+    
+    createSpikeScree: function(){
         var spikeScree = new SpikeScree();
         spikeScree.setPosition( new cc.Point( 600 , 190  ));
         this.addChild( spikeScree );
         spikeScree.scheduleUpdate();
-        
-//        this.movingAction = this.createAnimationAction();
-//		this.runAction( this.movingAction );
-        
-        
-		this.addKeyboardHandlers();
-	},
+    },
+    
+    createNewGame: function(){
+        var newGame = new NewGame();
+        newGame.setPosition( new cc.Point( 250 , 140  ));
+        this.addChild( newGame );
+        newGame.scheduleUpdate();
+    },
+    
+    createTitle: function(){
+        var title = new cc.Sprite.create( 'res/images/Title2.png' );
+        title.setPosition( new cc.Point( 440 , 350  ));
+        this.addChild( title );
+    },
+    
+    createLogo: function(){
+        var logo = new cc.Sprite.create( 'res/images/logo2.png' );
+        logo.setPosition( new cc.Point( 200 , 300  ));
+        this.addChild( logo );
+    },
     
     createAnimationAction: function() {
 		var titleAnimation = new cc.Animation.create();

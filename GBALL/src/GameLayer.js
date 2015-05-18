@@ -47,7 +47,7 @@ var GameLayer = cc.LayerColor.extend({
         timeRate = 1;
         numberOfBullet = 1;
         checkBullet = 20;
-        life = 1000;
+        life = 500;
         isDecreaseLife = false;
         
         console.log(checkBullet);
@@ -202,7 +202,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     update :function(dt){
-        this.hp.setScaleX(life/1000);
+        this.hp.setScaleX(life/500);
         this.countTime();
         this.checkTime();
         this.updateScore();  

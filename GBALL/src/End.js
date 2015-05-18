@@ -10,30 +10,46 @@ var End = cc.Layer.extend({
 		bge.setPosition( new cc.p(screenWidth/2,screenHeight/2) );
 		this.addChild(bge);
         
-        var gameOver = new cc.Sprite.create( 'res/images/GameOver.png' );
-        gameOver.setPosition( new cc.Point( 400 , 350  ));
-        this.addChild( gameOver );
+        this.createGameOver();
+        this.createBackScore();
+        this.createFinalScore();
+        this.createEnter();
+        this.createScoreLabel();
         
-        var backScore = new cc.Sprite.create( 'res/images/BackScore.png' );
-        backScore.setPosition( new cc.Point( 400 , 220  ));
-        this.addChild( backScore );
-        
-        var finalScore = new cc.Sprite.create( 'res/images/FinalScore.png' );
-        finalScore.setPosition( new cc.Point( 400 , 250  ));
-        this.addChild( finalScore );
-        
-        var enter = new Enter();
-        enter.setPosition( new cc.Point( 400 , 100  ));
-        this.addChild( enter );
-        enter.scheduleUpdate();
-        
+		this.addKeyboardHandlers();
+	},
+    
+    createScoreLabel: function(){
         this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
         this.scoreLabel.setPosition( new cc.Point( 400, 210 ) );
         this.scoreLabel.setString( score );
         this.addChild( this.scoreLabel );
-        
-		this.addKeyboardHandlers();
-	},
+    },
+    
+    createEnter: function(){
+        var enter = new Enter();
+        enter.setPosition( new cc.Point( 400 , 100  ));
+        this.addChild( enter );
+        enter.scheduleUpdate();
+    },
+    
+    createFinalScore: function(){
+        var finalScore = new cc.Sprite.create( 'res/images/FinalScore.png' );
+        finalScore.setPosition( new cc.Point( 400 , 250  ));
+        this.addChild( finalScore );
+    },
+    
+    createBackScore: function(){
+        var backScore = new cc.Sprite.create( 'res/images/BackScore.png' );
+        backScore.setPosition( new cc.Point( 400 , 220  ));
+        this.addChild( backScore );
+    },
+    
+    createGameOver: function(){
+        var gameOver = new cc.Sprite.create( 'res/images/GameOver.png' );
+        gameOver.setPosition( new cc.Point( 400 , 350  ));
+        this.addChild( gameOver );
+    },
 
 	addKeyboardHandlers: function() {
         var self = this;
